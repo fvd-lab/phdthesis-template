@@ -206,6 +206,7 @@
   \renewcommand{\chapternamenum}{}
   \renewcommand{\printchapternum}{%
    \marginnote[8.5pt]{\fontsize{50pt}{60pt}\textsf{\selectfont\textcolor{chapnum}{{\thechapter}}}}%
+   % \marginnote[8.5pt]{\fontsize{50pt}{60pt}\selectfont\textcolor{chapnum}{{\thechapter}}}%
   }%
   \renewcommand{\afterchapternum}{}
   %\renewcommand{\chaptitlefont}{\raggedright\large\setSpacing{1.5}\uppercaps}
@@ -245,22 +246,28 @@
 %                  {}%
 %                  {\small\textcolor{black!60}{\thepage}}
 % % Plain headers and footers
-% \makeevenfoot{plain}{\small\textcolor{black!60}{\thepage}}{}{}
-% \makeoddfoot{plain}{}{}{\small\textcolor{black!60}{\thepage}}
+% \makeevenfoot{plain}{}{}{\small\textcolor{sidenoteGray}{\thepage}}
+% \makeoddfoot{plain}{}{}{\small\textcolor{sidenoteGray}{\thepage}}
 
 % Page style
+% \renewcommand{\thepage}{%
+%     \textcolor{sidenoteGray}{\arabic{page}}
+%     }
+
 \createmark{chapter}{left}{shownumber}{}{\hspace{0.25em} }
 \createmark{section}{right}{shownumber}{}{\hspace{0.25em} }
 \makepagestyle{mit}
-\makeevenhead{mit}{\footnotesize\scshape\textcolor{black!60}{\lowercapsss{\leftmark}}}%
+\makeevenhead{mit}{\footnotesize\scshape\textcolor{sidenoteGray}{\lowercapsss{\leftmark}}}%
                  {}%
-                 {\small\textcolor{black!60}{\thepage}}
-\makeoddhead{mit}{\footnotesize\scshape\textcolor{black!60}{\lowercapsss{\leftmark}}}%
+                 {\small\textcolor{sidenoteGray}{\thepage}}
+\makeoddhead{mit}{\footnotesize\scshape\textcolor{sidenoteGray}{\lowercapsss{\leftmark}}}%
                  {}%
-                 {\small\textcolor{black!60}{\thepage}}
+                 {\small\textcolor{sidenoteGray}{\thepage}}
 % Plain headers and footers
-% \makeevenhead{plain}{}{}{\small\textcolor{black!60}{\thepage}}
-% \makeoddhead{plain}{}{}{\small\textcolor{black!60}{\thepage}}
+\makeevenfoot{plain}{}{}{\small\textcolor{sidenoteGray}{\thepage}}
+\makeoddfoot{plain}{}{}{\small\textcolor{sidenoteGray}{\thepage}}
+% \makeevenhead{plain}{}{}{\small\textcolor{sidenoteGray}{\thepage}}
+% \makeoddhead{plain}{}{}{\small\textcolor{sidenoteGray}{\thepage}}
 
 
 % Empty part page style
@@ -316,7 +323,7 @@
 
 % Enumeratable list
 \newenvironment{enum}{%
-  \begin{list}{\textcolor{mainBlue!75!black}{\arabic{enumi}.}}{%
+  \begin{list}{\textcolor{mainBlue}{\arabic{enumi}.}}{%
     \setlength{\topsep}{\onelineskip}
     \setlength{\partopsep}{0pt}
     \setlength{\parsep}{\parskip}
@@ -328,7 +335,7 @@
 
 % Itemized list
 \newenvironment{items}{%
-  \begin{list}{\textcolor{mainBlue!75!black}{\textbullet}}{%
+  \begin{list}{\textcolor{mainBlue}{\textbullet}}{%
     \setlength{\topsep}{0.5\onelineskip}
     \setlength{\partopsep}{0pt}
     \setlength{\parsep}{\parskip}
@@ -579,7 +586,7 @@
 \newbibmacro{sidecite}{%
   \printtext[sidecite]{%
     \RaggedRight%
-    [\printtext[bibhyperref]{\textcolor{mainBlue}{\printfield{labelnumber}}}]
+    \printtext[bibhyperref]{\printfield{labelnumber}.}
     \textcolor{sidenoteGray}{%
     \printnames{labelname}%
     \unspace, %

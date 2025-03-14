@@ -38,6 +38,7 @@
 \DeclareBibliographyOption{pageranges}[true]{%
   \settoggle{bbx:pageranges}{#1}%
 }
+
 \DeclareBibliographyOption{biblabel}{%
   \ifstrequal{#1}{brackets}
     % {%
@@ -45,7 +46,7 @@
     %   \setlength{\biblabelsep}{5 pt}%
     % }
     {%
-      \DeclareFieldFormat{labelnumberwidth}{\textcolor{black}{[##1]}}%
+      \DeclareFieldFormat{labelnumberwidth}{\textcolor{black}{##1}.}%
       \setlength{\biblabelsep}{3pt}%
     }
     {%
@@ -110,7 +111,7 @@
      suppcollection,suppperiodical]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[article,inbook,report,techreport,
      inproceedings,patent,thesis,unpublished,suppbook,
-     suppcollection,suppperiodical]{title}{\usebibmacro{string+doiurlisbn}{\mkbibquote{#1}}}
+     suppcollection,suppperiodical]{title}{\mkbibquote{\usebibmacro{string+doiurlisbn}{#1}}}
 \DeclareFieldFormat[book,incollection]{title}%
    {\usebibmacro{string+doiurlisbn}{\mkbibemph{#1}}}
 %\DeclareFieldFormat

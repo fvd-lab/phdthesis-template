@@ -5,13 +5,15 @@
                twoside,
                letterpaper,openright]{mitthesis}
 
+% \usepackage{hyperref} \hypersetup{colorlinks=true, citecolor=oiBlue, linkcolor=oiBlue, filecolor=magenta, urlcolor=oiBlue}
 \hypersetup{
   pdfinfo={
     Title={Some long title about some interesting subject},
     Author={John Doe},
     Subject={PhD Thesis},
     Keywords={MIT, some interesting subject}
-  }
+  },
+  colorlinks=true, citecolor=oiBlue, linkcolor=oiBlue, filecolor=magenta, urlcolor=oiGreen
 }
 
 \author{John Doe}
@@ -43,7 +45,10 @@
 
       \cleardoublepage%
       \pdfbookmark{\contentsname}{toc}%
+      % \tableofcontents*
+      {\hypersetup{hidelinks}
       \tableofcontents*
+      }
 
       \cleardoublepage
 
@@ -60,8 +65,8 @@
 
       \cleardoublepage
 
-      {\RaggedRight\listoffigures\cleardoublepage
-      \listoftables}
+      % {\RaggedRight\listoffigures\cleardoublepage
+      % \listoftables}
 
       \include{chapters/1_intro}
 
