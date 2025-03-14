@@ -12,6 +12,7 @@ all:
 	makeindex $(MAIN).idx
 	pdflatex $(MAIN).tex
 	pdflatex $(MAIN).tex
+	pdflatex $(MAIN).tex
 
 clean:
 	mv $(MAIN).tex temp.tex

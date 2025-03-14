@@ -10,7 +10,7 @@
 \DeclareOption{draftversion}{\renewcommand{\draftstring}{[draft: \today]}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
 \ProcessOptions
-\LoadClass{memoir}
+\LoadClass[openany]{memoir}
 
 
 %%
@@ -29,8 +29,8 @@
 
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
-%\RequirePackage{newpxtext} % UNCOMMENT THIS FOR PALATINO FONT!
-%\RequirePackage{newpxmath} % UNCOMMENT THIS FOR PALATINO FONT!
+% \RequirePackage{newpxtext} % UNCOMMENT THIS FOR PALATINO FONT!
+% \RequirePackage{newpxmath} % UNCOMMENT THIS FOR PALATINO FONT!
 %\useosf % old-style figures in text, not in math
 \newcommand{\lowercapsss}[1]{\textls[40]{\textsc{\MakeLowercase{#1}}}}
 \newcommand{\lowercaps}[1]{\textls[70]{\textsc{\MakeLowercase{#1}}}}
@@ -114,27 +114,24 @@
 
 \RequirePackage[table,pdftex,dvipsnames]{xcolor}
 
-\definecolor{MITred}{RGB}{163, 31, 52}
-\definecolor{MITdg}{RGB}{138, 139, 140}
-\definecolor{MITlg}{RGB}{194, 192, 191}
-\definecolor{AAblue}{RGB}{0, 23, 63}
-\definecolor{AAMITmix}{RGB}{82, 27, 58}
+\definecolor{oiBlueCustom}{HTML}{0065cc}
+\definecolor{oiBlue}{HTML}{0072b2}
+\definecolor{oiLightBlue}{HTML}{56b4ff}
+\definecolor{oiGreen}{HTML}{009e73}
+\definecolor{oiOrange}{HTML}{e69f00}
+\definecolor{oiYellow}{HTML}{ede13f}
+\definecolor{oiRed}{HTML}{d55e00}
+\definecolor{oiPink}{HTML}{fca7c7}
+\definecolor{oiGray}{HTML}{666666}
 
-\definecolor{redc}{RGB}{230, 50, 50}
-\definecolor{bluec}{RGB}{0, 70, 150}
-\definecolor{greenc}{RGB}{50, 140, 80}
+\definecolor{mainBlue}{HTML}{0072b2}
+\definecolor{sidenoteGray}{HTML}{666666}
+\definecolor{red}{HTML}{d55e00}
 
-\definecolor{red}{HTML}{AD1737}
-\definecolor{brown}{HTML}{990000}
-\definecolor{bar}{HTML}{8D9965}
-
-\colorlet{chapnum}{MITred}
-\definecolor{largeornament}{gray}{0.85}
-\definecolor{smallornament}{gray}{0.65}
-
+\colorlet{chapnum}{mainBlue}
 \colorlet{title}{black}
-\colorlet{partnum}{MITred}
-\colorlet{tocchapnum}{MITred}
+\colorlet{partnum}{mainBlue}
+\colorlet{tocchapnum}{mainBlue}
 
 
 %%
@@ -145,7 +142,8 @@
 \RequirePackage{morefloats}
 \RequirePackage{graphicx}
 \RequirePackage{epstopdf}
-\RequirePackage{subfig} % subcaptions for subfigures
+\RequirePackage{subcaption} % subcaptions for subfigures
+% \RequirePackage{subfig}
 \RequirePackage{varwidth} % package to limit the width of tikzpictures
 \RequirePackage{fixltx2e} % make sure list of figures is ordered correctly
 
@@ -159,6 +157,7 @@
     \newlength\figurewidth
 \RequirePackage{tikz-3dplot}
 \RequirePackage{tkz-euclide}
+% \usetkzobj{all}
 \tikzset{
   basic box/.style={
     shape=rectangle, rounded corners, align=center,
@@ -234,22 +233,35 @@
 %% Tops and tails
 %%
 
+% % Page style
+% \nouppercaseheads
+% \createmark{chapter}{left}{shownumber}{}{\hspace{0.25em} }
+% \createmark{section}{right}{shownumber}{}{\hspace{0.25em} }
+% \makepagestyle{mit}
+% \makeevenfoot{mit}{\small\textcolor{black!60}{\thepage}}%
+%                   {}%
+%                   {\footnotesize\scshape\textcolor{black!60}{\lowercapsss{\rightmark}}}
+% \makeoddfoot{mit}{\footnotesize\scshape\textcolor{black!60}{\lowercapsss{\leftmark}}}%
+%                  {}%
+%                  {\small\textcolor{black!60}{\thepage}}
+% % Plain headers and footers
+% \makeevenfoot{plain}{\small\textcolor{black!60}{\thepage}}{}{}
+% \makeoddfoot{plain}{}{}{\small\textcolor{black!60}{\thepage}}
+
 % Page style
-\nouppercaseheads
 \createmark{chapter}{left}{shownumber}{}{\hspace{0.25em} }
 \createmark{section}{right}{shownumber}{}{\hspace{0.25em} }
-
 \makepagestyle{mit}
-\makeevenfoot{mit}{\small\textcolor{black!60}{\thepage}}%
-                  {}%
-                  {\footnotesize\scshape\textcolor{black!60}{\lowercapsss{\rightmark}}}
-\makeoddfoot{mit}{\footnotesize\scshape\textcolor{black!60}{\lowercapsss{\leftmark}}}%
+\makeevenhead{mit}{\footnotesize\scshape\textcolor{black!60}{\lowercapsss{\leftmark}}}%
                  {}%
                  {\small\textcolor{black!60}{\thepage}}
-
+\makeoddhead{mit}{\footnotesize\scshape\textcolor{black!60}{\lowercapsss{\leftmark}}}%
+                 {}%
+                 {\small\textcolor{black!60}{\thepage}}
 % Plain headers and footers
-\makeevenfoot{plain}{\small\textcolor{black!60}{\thepage}}{}{}
-\makeoddfoot{plain}{}{}{\small\textcolor{black!60}{\thepage}}
+% \makeevenhead{plain}{}{}{\small\textcolor{black!60}{\thepage}}
+% \makeoddhead{plain}{}{}{\small\textcolor{black!60}{\thepage}}
+
 
 % Empty part page style
 \aliaspagestyle{part}{empty}
@@ -304,23 +316,24 @@
 
 % Enumeratable list
 \newenvironment{enum}{%
-  \begin{list}{\textcolor{MITred!75!black}{\arabic{enumi}.}}{%
+  \begin{list}{\textcolor{mainBlue!75!black}{\arabic{enumi}.}}{%
     \setlength{\topsep}{\onelineskip}
     \setlength{\partopsep}{0pt}
     \setlength{\parsep}{\parskip}
     \setlength{\itemsep}{\parskip}
+    \setlength{\leftmargin}{2\parindent}
     \usecounter{enumi}
   }
 }{\end{list}}
 
 % Itemized list
 \newenvironment{items}{%
-  \begin{list}{\textcolor{MITred!75!black}{\textbullet}}{%
+  \begin{list}{\textcolor{mainBlue!75!black}{\textbullet}}{%
     \setlength{\topsep}{0.5\onelineskip}
     \setlength{\partopsep}{0pt}
     \setlength{\parsep}{\parskip}
     \setlength{\itemsep}{1.25\parskip}
-    \setlength{\leftmargin}{\parindent}
+    \setlength{\leftmargin}{2\parindent}
     \setlength{\itemindent}{0pt}
   }
 }{\end{list}}
@@ -435,17 +448,15 @@
   }[#1\onelineskip]%
 }%
 
-\RequirePackage{marginfix} % for citations, needs to be loaded before footmisc
-
 \RequirePackage[symbol]{footmisc}
 \newcounter{mparcnt}
-\renewcommand\themparcnt{\fnsymbol{mparcnt}}
+% \renewcommand\themparcnt{\themparcnt}
 \newcommand\sidenote[2][0pt]{\refstepcounter{mparcnt}\textsuperscript{\themparcnt}\marginpar{\vspace{#1}\scriptsize\linespread{1.05}\textsuperscript{\themparcnt}#2}}
 \makeatletter
 \@addtoreset{mparcnt}{chapter}
 \makeatother
 
-\newcommand\published[2][0pt]{\marginpar{\vspace{#1}\RaggedRight\scriptsize\textcolor{gray}{#2}}}
+\newcommand\published[2][0pt]{\marginpar{\vspace{#1}\RaggedRight\scriptsize\textcolor{sidenoteGray}{#2}}}
 
 % Sidetable (have to use marginpar since tabular doesn't work with marginnote)
 \newcommand{\sidetable}[3][]{%
@@ -540,9 +551,11 @@
 %% Citations
 %%
 
+% \RequirePackage{marginfix}
 \RequirePackage[hyperref=true,style=aiaa,giveninits=true,doi=true,isbn=true,
                 url=true,backref,backrefstyle=none,maxcitenames=1,
-                dateabbrev=false,urldate=long,labeldateparts]{biblatex}
+                dateabbrev=false,urldate=long,backend=biber,labeldateparts]{biblatex}
+% \usepackage[backend=biber]{biblatex}
 
 \DeclareCiteCommand{\mciten} % only prints number and puts reference in margin
   {}
@@ -566,8 +579,8 @@
 \newbibmacro{sidecite}{%
   \printtext[sidecite]{%
     \RaggedRight%
-    \printtext[bibhyperref]{\textcolor{MITred}{\printfield{labelnumber}.}}
-    \textcolor{gray}{%
+    [\printtext[bibhyperref]{\textcolor{mainBlue}{\printfield{labelnumber}}}]
+    \textcolor{sidenoteGray}{%
     \printnames{labelname}%
     \unspace, %
     \iffieldundef{doi}{%
@@ -589,28 +602,40 @@
     {%
       \href{https://dx.doi.org/\thefield{doi}}{\printfield[citetitle]{labeltitle}}%
     }%
-    \setunit{\addperiod\space}%
+    \setunit{,\space}%
     \printfield{year}%
+    .
     }%
     }%
   \setunit{}}
 
 \makeatletter
+%%%% hack to move punctuation like autocite
+% \long\def\blx@defcitecmd@iii#1[#2]{%
+  % \protected\long\csedef{blx@cite@#1}##1##2##3##4{%
+  %   \begingroup
+  %   \blx@citeinit
+  %   \ifstrequal{#1}{superpluscite}{\noexpand\unspace##4}{}%
+  %   \unexpanded{#2}{\blxciteicmd{#1}{##1}{##2}{##3}{}}%
+  %   \ifstrequal{#1}{superpluscite}{}{##4}\endgroup}%
+  % \blx@defcitecmd@iv{#1}}
+%%%% hack end
+% \makeatother --> this might fix the issue? not sure
 
-\DeclareCiteCommand{\cbx@mcite}[\mkbibsuperscript]
+\DeclareCiteCommand{\cbx@mcite}[]
   {\usebibmacro{cite:init}%
    \let\multicitedelim=\supercitedelim
-   \iffieldundef{prenote}
-     {}
-     {\BibliographyWarning{Ignoring prenote argument}}%
-   \iffieldundef{postnote}
-     {}
-     {\BibliographyWarning{Ignoring postnote argument}}%
-   }
+    \iffieldundef{prenote}
+      {}
+      {\BibliographyWarning{Ignoring prenote argument}}%
+    \iffieldundef{postnote}
+      {}
+      {\BibliographyWarning{Ignoring postnote argument}}%
+   \bibopenbracket}
   {\usebibmacro{citeindex}%
    \usebibmacro{cite:comp}}
   {}
-  {\usebibmacro{cite:dump}}
+  {\usebibmacro{cite:dump}\bibclosebracket}
 
 \DeclareCiteCommand{\mcite}[\cbx@mcite@init\cbx@mcite]
   {\gdef\cbx@savedkeys{}%
@@ -626,8 +651,6 @@
 
 \newrobustcmd{\cbx@mcite@init}[2]{%
   \def\cbx@savedcites{#1}#2\cbx@savedcites\empty}
-
-\DeclareCitePunctuationPosition{\mcite}{f} % cite like autocite
 \makeatother
 
 %%
@@ -693,8 +716,7 @@
 %%%
 %% Index (2)
 %%%
-\RequirePackage[toc,nomain,acronym]{glossaries} % List of acronyms and glossary
-\setacronymstyle{long-sc-short}
+\RequirePackage[toc,nomain,acronym,smallcaps]{glossaries} % List of acronyms and glossary
 \renewcommand*{\glsnamefont}[1]{\textup{#1}}
 
 \RequirePackage{makeidx}
@@ -742,8 +764,8 @@
       {\large Doctor of Philosophy} \vspace{0.75pc} \\
       at the \vspace{0.75pc} \\
       {\large Massachusetts Institute of Technology} \vspace{0.75pc} \\
-      {\large September 2025} \vspace{0.75pc}\\
-      {\textcopyright\ Massachusetts Institute of Technology 2025. All rights reserved.}
+      {\large September 2018} \vspace{0.75pc}\\
+      {\textcopyright\ Massachusetts Institute of Technology 2018. All rights reserved.}
     \end{minipage}
     };
 
@@ -753,7 +775,7 @@
       \textsl{Author} \\
       John Doe  \hfill \rule{0.3\textwidth}{.2pt} \\
       Department of Aeronautics and Astronautics \\
-      August 23, 2025 \vspace{0.6pc}\\
+      August 23, 2018 \vspace{0.6pc}\\
       \textsl{Certified by} \\
       Professor 1 \hfill \rule{0.3\textwidth}{.2pt}\\
       Professor of Aeronautics and Astronautics \\
@@ -804,7 +826,7 @@
       {\large John Doe}\vspace{1pc} \\
 
       Submitted to the Department of \\
-      Aeronautics and Astronautics on \mbox{August 23, 2025,} \\
+      Aeronautics and Astronautics on \mbox{August 23, 2018,} \\
       in Partial Fulfillment of the Requirements for the Degree of \\
       Doctor of Philosophy in Aerospace Computational Engineering\\
       }%
@@ -825,3 +847,171 @@
   %\end{minipage}
   \clearpage%
 }
+
+
+% ----------------------------------------------------------------------
+%           User Created Environments 
+% ----------------------------------------------------------------------
+\usepackage[many]{tcolorbox}
+
+% \newtheoremstyle{mystyle}%
+%   {}%
+%   {}%
+%   {}%
+%   {}%
+%   {\sffamily\bfseries}%
+%   {.}%
+%   { }%
+%   {}%
+
+% \renewenvironment{proof}{{\sffamily\bfseries Proof. }}{\qed}
+
+% \theoremstyle{mystyle}{
+%   \newtheorem*{remark}{Remark}
+% }
+
+% \theoremstyle{mystyle}{
+%   \newtheorem{definition}{Definition}[section]
+% }
+
+% \theoremstyle{mystyle}{
+%   \newtheorem{theorem}{Theorem}[section]
+% }
+
+% \theoremstyle{mystyle}{
+%   \newtheorem{lemma}[theorem]{Lemma}
+% }
+
+% \theoremstyle{mystyle}{
+%   \newtheorem*{example}{Example}
+% }
+
+% \theoremstyle{definition}{
+%     \newtheorem*{exercise}{Exercise}}
+
+% \newtcolorbox[auto counter, number within=section]{mybox}[2][]{%
+%     title=Mybox~\thetcbcounter: #2, #1}
+
+\newtcolorbox[auto counter, number within=chapter]{example}[2][]{
+  title=Example~\thetcbcounter: #2, #1,
+  colframe={oiBlue},
+  colback={White!95!oiBlue},
+  enhanced jigsaw, 
+  sharp corners,
+  breakable,
+}
+
+\newtcolorbox[auto counter, number within=chapter]{tip}[2][]{
+  title=Tip~\thetcbcounter: #2, #1,
+  colframe={oiGreen},
+  colback={White!95!oiGreen},
+  enhanced jigsaw, 
+  sharp corners,
+  breakable,
+}
+
+\newtcolorbox[auto counter, number within=chapter]{note}[2][]{
+  title=Note~\thetcbcounter: #2, #1,
+  colframe={oiRed},
+  colback={White!95!oiRed},
+  enhanced jigsaw, 
+  sharp corners,
+  breakable,
+}
+
+\newtcolorbox[auto counter, number within=chapter]{algorithm_box}[2][]{
+  title=Algorithm~\thetcbcounter: #2, #1,
+  colframe={Black},
+  colback={White!95!Black},
+  enhanced jigsaw, 
+  sharp corners,
+  breakable,
+}
+
+
+% \newtcolorbox[auto counter, number within=chapter]{note}[2][]{
+%   title=Definition~\thetcbcounter: #2, #1,
+%   boxrule=0pt,
+%   boxsep=0pt,
+%   colback={White!90!oiGreen},
+%   enhanced jigsaw, 
+%   borderline west={2pt}{0pt}{oiGreen},
+%   sharp corners,
+%   before skip=10pt,
+%   after skip=10pt,
+%   breakable,
+% }
+
+
+% % \newtcolorbox{theorem}{
+% \newtcolorbox[auto counter, number within=chapter]{theorem}[2][]{
+%   title=Theorem~\thetcbcounter: #2, #1,
+%   boxrule=0pt,
+%   boxsep=0pt,
+%   colback={White!90!Dandelion},
+%   enhanced jigsaw, 
+%   borderline west={2pt}{0pt}{Dandelion},
+%   sharp corners,
+%   before skip=10pt,
+%   after skip=10pt,
+%   breakable,
+% }
+
+% \newtcolorbox{lemma}{
+%   boxrule=0pt,
+%   boxsep=0pt,
+%   blanker,
+%   borderline west={2pt}{0pt}{Red},
+%   before skip=10pt,
+%   after skip=10pt,
+%   sharp corners,
+%   left=12pt,
+%   right=12pt,
+%   breakable,
+% }
+
+% \newtcolorbox{proof}{
+%   boxrule=0pt,
+%   boxsep=0pt,
+%   blanker,
+%   borderline west={2pt}{0pt}{NavyBlue!80!white},
+%   before skip=10pt,
+%   after skip=10pt,
+%   left=12pt,
+%   right=12pt,
+%   breakable,
+% }
+
+% \newtcolorbox{remark}{
+%   boxrule=0pt,
+%   boxsep=0pt,
+%   blanker,
+%   borderline west={2pt}{0pt}{Green},
+%   before skip=10pt,
+%   after skip=10pt,
+%   left=12pt,
+%   right=12pt,
+%   breakable,
+% }
+
+% \newtcolorbox{example}{
+%   boxrule=0pt,
+%   boxsep=0pt,
+%   blanker,
+%   borderline west={2pt}{0pt}{Black},
+%   sharp corners,
+%   before skip=10pt,
+%   after skip=10pt,
+%   left=12pt,
+%   right=12pt,
+%   breakable,
+% }
+
+% % \renewcommand*{\raggedleftmarginnote}{\noindent}
+% % \renewcommand*{\raggedrightmarginnote}{\noindent}
+% % % \newcommand{\mn}[1]{\textsuperscript{\thesidenote}{}\marginnote{\textsuperscript{\thesidenote}{}~\itshape\footnotesize #1}\refstepcounter{sidenote}}
+% % \newcommand{\en}[1]{\marginnote{\footnotesize #1}}
+% % \newcommand{\sn}[1]{\sidenote{\itshape\footnotesize #1}}
+
+
+

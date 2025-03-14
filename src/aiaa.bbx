@@ -45,7 +45,7 @@
     %   \setlength{\biblabelsep}{5 pt}%
     % }
     {%
-      \DeclareFieldFormat{labelnumberwidth}{\textcolor{MITred}{##1}}%
+      \DeclareFieldFormat{labelnumberwidth}{\textcolor{black}{[##1]}}%
       \setlength{\biblabelsep}{3pt}%
     }
     {%
@@ -161,7 +161,7 @@
       }
 
 % Put "cited on" in margin
-\DeclareFieldFormat{pagerefformat}{{\footnotesize\color{gray}#1}}
+\DeclareFieldFormat{pagerefformat}{{\footnotesize\color{sidenoteGray}#1}}
 %\DeclareFieldFormat{pagerefformat}{\mkbibparens{{\color{red}\mkbibemph{#1}}}}
 \renewbibmacro*{pageref}{%
   \iflistundef{pageref}
